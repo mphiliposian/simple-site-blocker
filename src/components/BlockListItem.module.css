@@ -1,0 +1,10 @@
+.BlockListItem {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.DomainInput {
+    flex: 1;
+    min-width: 0;
+}

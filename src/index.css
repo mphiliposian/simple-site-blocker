@@ -1,0 +1,24 @@
+@font-face {
+    font-family: "ChicagoFLF";
+    src: url("/public/fonts/ChicagoFLF.woff2") format("woff2");
+    font-weight: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: ChicagoFLF, Verdana, sans-serif;
+    background-color: lightgrey;
+}
+
+body,
+html {
+    min-width: 200;
+}
+
+/* Force form controls to inherit font */
+input,
+button,
+select,
+textarea {
+    font-family: inherit;
+}

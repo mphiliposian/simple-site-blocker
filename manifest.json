@@ -1,0 +1,19 @@
+{
+    "name": "Simple Site Blocker",
+    "description": "A simpler site blocker. Enter a list of domain names to block sites.",
+    "version": "0.1",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "/dist/index.html"
+    },
+    "icons": {
+        "16": "/src/assets/icon-16.png",
+        "32": "/src/assets/icon-32.png",
+        "48": "/src/assets/icon-48.png",
+        "128": "/src/assets/icon-128.png"
+    },
+    "background": {
+        "service_worker": "scripts/background.js"
+    },
+    "permissions": ["declarativeNetRequest", "storage"]
+}
