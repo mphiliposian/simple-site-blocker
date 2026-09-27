@@ -1,6 +1,6 @@
 # Simple Site Blocker
 
-A simple, free web extension that blocks websites by domain to help keep you focused. Currently supports Chrome 84+, but Firefox support will be added in the future.
+A simple, free web extension that blocks websites by domain to help keep you focused. Currently supports only Chrome 84+.
 
 ![Version 0.1!](screenshots/sample_v0.1.png)
 
