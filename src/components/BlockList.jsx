@@ -54,17 +54,27 @@ export function BlockList() {
         );
     }, []);
 
-    const removeItem = useCallback((id) => {
-        setItems((prevItems) => prevItems.filter((item) => item.id !== id));
-    }, []);
+    const removeItem = useCallback(
+        (id) => {
+            const newItems = items.filter((item) => item.id !== id);
+            setItems(newItems);
+            persist(newItems);
+        },
+        [items, persist],
+    );
 
-    const addItem = useCallback((value) => {
-        if (!value.trim()) return;
-        setItems((prevItems) => [
-            ...prevItems,
-            { id: getNextRuleId(prevItems.map((x) => x.id)), value },
-        ]);
-    }, []);
+    const addItem = useCallback(
+        (value) => {
+            if (!value.trim()) return;
+            const newItems = [
+                ...items,
+                { id: getNextRuleId(items.map((x) => x.id)), value },
+            ];
+            setItems(newItems);
+            persist(newItems);
+        },
+        [items, persist],
+    );
 
     const removeEmpty = useCallback(() => {
         setItems((prevItems) => prevItems.filter((item) => item.value));
