@@ -2,10 +2,13 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 import { BlockListItem } from "./BlockListItem";
 import { NewBlockListItem } from "./NewBlockListItem";
+import { PauseButton } from "./PauseButton";
 
 import styles from "./BlockList.module.css";
 
 export function BlockList() {
+    const EDIT_DELAY = 400;
+
     const [items, setItems] = useState([]); // [{ id, value }]
     const timeoutRef = useRef(null);
 
@@ -25,19 +28,6 @@ export function BlockList() {
         [removeEmpty],
     );
 
-    // Debounced write whenever the component is updated
-    useEffect(() => {
-        timeoutRef.current = setTimeout(() => persist(items), 400);
-        return () => clearTimeout(timeoutRef.current);
-    }, [items, persist]);
-
-    // Synchronous write whenever the popup is hidden
-    useEffect(() => {
-        const onPageHide = () => persist(items);
-        window.addEventListener("pagehide", onPageHide);
-        return () => window.removeEventListener("pagehide", onPageHide);
-    }, [items, persist]);
-
     // Sync block list from the browser's storage
     useEffect(() => {
         chrome.storage.sync
@@ -52,13 +42,20 @@ export function BlockList() {
             });
     }, []);
 
-    const updateItem = useCallback((id, value) => {
-        setItems((prevItems) =>
-            prevItems.map((item) =>
+    const updateItem = useCallback(
+        (id, value) => {
+            const newItems = items.map((item) =>
                 item.id === id ? { ...item, value } : item,
-            ),
-        );
-    }, []);
+            );
+            setItems(newItems);
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = setTimeout(
+                () => persist(newItems),
+                EDIT_DELAY,
+            );
+        },
+        [items, persist],
+    );
 
     const removeItem = useCallback(
         (id) => {
@@ -93,6 +90,7 @@ export function BlockList() {
                 />
             ))}
             <NewBlockListItem onAdd={addItem} />
+            <PauseButton />
         </div>
     );
 }
