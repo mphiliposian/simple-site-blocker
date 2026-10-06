@@ -7,17 +7,23 @@ import styles from "./BlockList.module.css";
 
 export function BlockList() {
     const [items, setItems] = useState([]); // [{ id, value }]
-    const [isPaused, setIsPaused] = useState(false);
     const timeoutRef = useRef(null);
 
-    const persist = useCallback((itemsToWrite) => {
-        removeEmpty();
-        clearTimeout(timeoutRef.current);
-        const blockedDomains = Object.fromEntries(
-            itemsToWrite.map((i) => [i.value, i.id]),
-        );
-        chrome.storage.sync.set({ blockedDomains });
+    const removeEmpty = useCallback(() => {
+        setItems((prevItems) => prevItems.filter((item) => item.value));
     }, []);
+
+    const persist = useCallback(
+        (itemsToWrite) => {
+            removeEmpty();
+            clearTimeout(timeoutRef.current);
+            const blockedDomains = Object.fromEntries(
+                itemsToWrite.map((i) => [i.value, i.id]),
+            );
+            chrome.storage.sync.set({ blockedDomains });
+        },
+        [removeEmpty],
+    );
 
     // Debounced write whenever the component is updated
     useEffect(() => {
@@ -30,7 +36,7 @@ export function BlockList() {
         const onPageHide = () => persist(items);
         window.addEventListener("pagehide", onPageHide);
         return () => window.removeEventListener("pagehide", onPageHide);
-    }, [persist]);
+    }, [items, persist]);
 
     // Sync block list from the browser's storage
     useEffect(() => {
@@ -75,10 +81,6 @@ export function BlockList() {
         },
         [items, persist],
     );
-
-    const removeEmpty = useCallback(() => {
-        setItems((prevItems) => prevItems.filter((item) => item.value));
-    }, []);
 
     return (
         <div className={styles.BlockList}>
