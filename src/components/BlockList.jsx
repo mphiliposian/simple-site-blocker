@@ -2,35 +2,31 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 import { BlockListItem } from "./BlockListItem";
 import { NewBlockListItem } from "./NewBlockListItem";
+import { PauseButton } from "./PauseButton";
 
 import styles from "./BlockList.module.css";
 
 export function BlockList() {
+    const EDIT_DELAY = 400;
+
     const [items, setItems] = useState([]); // [{ id, value }]
-    const [isPaused, setIsPaused] = useState(false);
     const timeoutRef = useRef(null);
 
-    const persist = useCallback((itemsToWrite) => {
-        removeEmpty();
-        clearTimeout(timeoutRef.current);
-        const blockedDomains = Object.fromEntries(
-            itemsToWrite.map((i) => [i.value, i.id]),
-        );
-        chrome.storage.sync.set({ blockedDomains });
+    const removeEmpty = useCallback(() => {
+        setItems((prevItems) => prevItems.filter((item) => item.value));
     }, []);
 
-    // Debounced write whenever the component is updated
-    useEffect(() => {
-        timeoutRef.current = setTimeout(() => persist(items), 400);
-        return () => clearTimeout(timeoutRef.current);
-    }, [items, persist]);
-
-    // Synchronous write whenever the popup is hidden
-    useEffect(() => {
-        const onPageHide = () => persist(items);
-        window.addEventListener("pagehide", onPageHide);
-        return () => window.removeEventListener("pagehide", onPageHide);
-    }, [persist]);
+    const persist = useCallback(
+        (itemsToWrite) => {
+            removeEmpty();
+            clearTimeout(timeoutRef.current);
+            const blockedDomains = Object.fromEntries(
+                itemsToWrite.map((i) => [i.value, i.id]),
+            );
+            chrome.storage.sync.set({ blockedDomains });
+        },
+        [removeEmpty],
+    );
 
     // Sync block list from the browser's storage
     useEffect(() => {
@@ -46,29 +42,42 @@ export function BlockList() {
             });
     }, []);
 
-    const updateItem = useCallback((id, value) => {
-        setItems((prevItems) =>
-            prevItems.map((item) =>
+    const updateItem = useCallback(
+        (id, value) => {
+            const newItems = items.map((item) =>
                 item.id === id ? { ...item, value } : item,
-            ),
-        );
-    }, []);
+            );
+            setItems(newItems);
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = setTimeout(
+                () => persist(newItems),
+                EDIT_DELAY,
+            );
+        },
+        [items, persist],
+    );
 
-    const removeItem = useCallback((id) => {
-        setItems((prevItems) => prevItems.filter((item) => item.id !== id));
-    }, []);
+    const removeItem = useCallback(
+        (id) => {
+            const newItems = items.filter((item) => item.id !== id);
+            setItems(newItems);
+            persist(newItems);
+        },
+        [items, persist],
+    );
 
-    const addItem = useCallback((value) => {
-        if (!value.trim()) return;
-        setItems((prevItems) => [
-            ...prevItems,
-            { id: getNextRuleId(prevItems.map((x) => x.id)), value },
-        ]);
-    }, []);
-
-    const removeEmpty = useCallback(() => {
-        setItems((prevItems) => prevItems.filter((item) => item.value));
-    }, []);
+    const addItem = useCallback(
+        (value) => {
+            if (!value.trim()) return;
+            const newItems = [
+                ...items,
+                { id: getNextRuleId(items.map((x) => x.id)), value },
+            ];
+            setItems(newItems);
+            persist(newItems);
+        },
+        [items, persist],
+    );
 
     return (
         <div className={styles.BlockList}>
@@ -81,6 +90,7 @@ export function BlockList() {
                 />
             ))}
             <NewBlockListItem onAdd={addItem} />
+            <PauseButton />
         </div>
     );
 }

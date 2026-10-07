@@ -8,7 +8,7 @@ export function BlockListItem({ value, onChange, onRemove }) {
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
             />
-            <button onClick={onRemove}>
+            <button className={styles.TrashButton} onClick={onRemove}>
                 <img src="/src/assets/trash.svg" />
             </button>
         </div>

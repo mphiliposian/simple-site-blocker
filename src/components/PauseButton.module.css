@@ -1,0 +1,16 @@
+.PauseMenu {
+    display: flex;
+    flex-direction: row;
+}
+
+.PauseButton {
+    width: 32px;
+    height: 32px;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.Hidden {
+    visibility: hidden;
+}
