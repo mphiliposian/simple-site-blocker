@@ -21,10 +21,15 @@ export function PauseButton() {
     }, [blockState]);
 
     return (
-        <button className={styles.PauseButton} onClick={onClick}>
-            <img
-                src={`/src/assets/${blockState === "active" ? "pause" : "play"}.svg`}
-            />
-        </button>
+        <div className={styles.PauseMenu}>
+            <span className={`${blockState === "active" ? styles.Hidden : ""}`}>
+                Blocking is PAUSED
+            </span>
+            <button className={styles.PauseButton} onClick={onClick}>
+                <img
+                    src={`/src/assets/${blockState === "active" ? "pause" : "play"}.svg`}
+                />
+            </button>
+        </div>
     );
 }

@@ -8,3 +8,8 @@
     flex: 1;
     min-width: 0;
 }
+
+.TrashButton {
+    display: flex;
+    justify-content: center;
+}
