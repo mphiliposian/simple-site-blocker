@@ -1,0 +1,83 @@
+import { useState, useEffect, useRef, useCallback } from "react";
+
+export function useBlockList() {
+    const EDIT_DELAY = 400;
+
+    const [items, setItems] = useState([]); // [{ id, value }]
+    const timeoutRef = useRef(null);
+
+    const removeEmpty = useCallback(() => {
+        setItems((prevItems) => prevItems.filter((item) => item.value));
+    }, []);
+
+    const persist = useCallback(
+        (itemsToWrite) => {
+            removeEmpty();
+            clearTimeout(timeoutRef.current);
+            const blockedDomains = {};
+            for (const { id, value } of itemsToWrite) {
+                const domain = value.trim().toLowerCase();
+                if (!(domain in blockedDomains)) blockedDomains[domain] = id;
+            }
+            chrome.storage.sync.set({ blockedDomains });
+        },
+        [removeEmpty],
+    );
+
+    // Sync block list from the browser's storage
+    useEffect(() => {
+        chrome.storage.sync
+            .get("blockedDomains")
+            .then(({ blockedDomains = {} }) => {
+                setItems(
+                    Object.entries(blockedDomains).map(([value, id]) => ({
+                        id,
+                        value,
+                    })),
+                );
+            });
+    }, []);
+
+    const updateItem = useCallback(
+        (id, value) => {
+            const newItems = items.map((item) =>
+                item.id === id ? { ...item, value } : item,
+            );
+            setItems(newItems);
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = setTimeout(
+                () => persist(newItems),
+                EDIT_DELAY,
+            );
+        },
+        [items, persist],
+    );
+
+    const removeItem = useCallback(
+        (id) => {
+            const newItems = items.filter((item) => item.id !== id);
+            setItems(newItems);
+            persist(newItems);
+        },
+        [items, persist],
+    );
+
+    const addItem = useCallback(
+        (value) => {
+            if (!value.trim()) return;
+            const newItems = [
+                ...items,
+                { id: getNextRuleId(items.map((x) => x.id)), value },
+            ];
+            setItems(newItems);
+            persist(newItems);
+        },
+        [items, persist],
+    );
+
+    return { items, updateItem, removeItem, addItem };
+}
+
+function getNextRuleId(existingIds) {
+    return existingIds.length ? Math.max(...existingIds) + 1 : 1;
+}
