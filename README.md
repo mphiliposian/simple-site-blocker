@@ -2,7 +2,7 @@
 
 A simple, free web extension that blocks websites by domain to help keep you focused. Currently supports only Chrome 84+.
 
-![Version 0.1!](screenshots/sample_v0.1.png)
+![Version 0.2!](screenshots/sample_v0.2.png)
 
 ## Install
 
