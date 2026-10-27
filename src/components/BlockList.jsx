@@ -20,9 +20,11 @@ export function BlockList() {
         (itemsToWrite) => {
             removeEmpty();
             clearTimeout(timeoutRef.current);
-            const blockedDomains = Object.fromEntries(
-                itemsToWrite.map((i) => [i.value, i.id]),
-            );
+            const blockedDomains = {};
+            for (const { id, value } of itemsToWrite) {
+                const domain = value.trim().toLowerCase();
+                if (!(domain in blockedDomains)) blockedDomains[domain] = id;
+            }
             chrome.storage.sync.set({ blockedDomains });
         },
         [removeEmpty],
