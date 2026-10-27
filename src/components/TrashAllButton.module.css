@@ -1,5 +1,5 @@
 .TrashAllButton {
-    height: 32px;
+    height: var(--control-height);
     min-width: 64px;
     display: flex;
     align-items: center;

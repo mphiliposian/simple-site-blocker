@@ -6,8 +6,8 @@
 }
 
 .PauseButton {
-    width: 32px;
-    height: 32px;
+    width: var(--control-height);
+    height: var(--control-height);
     margin-left: auto;
     display: flex;
     justify-content: center;

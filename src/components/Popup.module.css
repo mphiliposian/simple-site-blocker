@@ -2,11 +2,11 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    /* Chrome caps popups at 600px; subtract body's 4px margins */
-    max-height: calc(600px - 8px);
+    /* Chrome caps popups at 600px */
+    max-height: calc(600px - 2 * var(--page-margin));
     background-color: var(--background-color);
-    border: 1px solid var(--text-color);
-    box-shadow: 2px 2px 0 var(--text-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 2px 2px 0 var(--border-color);
 }
 
 .TitleBar {
@@ -17,8 +17,8 @@
     padding: 0 4px;
     font-size: 13px;
     font-weight: normal;
-    border-bottom: 1px solid var(--text-color);
-    box-shadow: var(--raised);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--bevel-raised);
 }
 
 /* Pinstripes on either side of the title */

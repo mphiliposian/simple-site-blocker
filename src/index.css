@@ -5,38 +5,85 @@
     font-display: swap;
 }
 
+/* ---------- Theme ---------- */
+
 :root {
     color-scheme: light;
 
+    /* Desktop (visible in the page margin) */
     --desktop-color: #8e8e8e;
     --desktop-dither-color: #b4b4b4;
-    --background-color: #dddddd;
+
+    /* Text and lines */
     --text-color: #000000;
+    --border-color: #000000;
+    --placeholder-color: #888888;
+
+    /* Surfaces */
+    --background-color: #dddddd;
+    --list-background-color: #ffffff;
+    --input-background-color: #ffffff;
+
+    /* Accents */
     --accent-color: #6b6bc4;
     --highlight-color: #ccccff;
-    --list-background-color: #ffffff;
-    --list-border-color: var(--text-color);
-    --scrollbar-track-color: #eeeeee;
-    --scrollbar-thumb-color: #bbbbee;
-    --input-background-color: #ffffff;
-    --input-border-color: var(--text-color);
-    --placeholder-color: #888888;
+
+    /* Buttons */
     --button-background-color: #eeeeee;
     --button-text-color: var(--text-color);
+    --button-hover-background-color: #ffffff;
+    --button-active-background-color: var(--text-color);
+    --button-active-text-color: #ffffff;
+
+    /* Scrollbars */
+    --scrollbar-track-color: #eeeeee;
+    --scrollbar-thumb-color: #bbbbee;
+
+    /* 3D bevels */
     --bevel-light-color: #ffffff;
     --bevel-dark-color: #888888;
-
-    --raised:
+    --bevel-raised:
         inset 1px 1px 0 var(--bevel-light-color),
         inset -1px -1px 0 var(--bevel-dark-color);
-    --sunken:
+    --bevel-sunken:
         inset 1px 1px 0 var(--bevel-dark-color),
         inset -1px -1px 0 var(--bevel-light-color);
+
+    /* Layout */
+    --page-margin: 4px;
+    --control-height: 32px;
+}
+
+/* ---------- Resets ---------- */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+
+/* Force form controls to inherit font */
+input,
+button,
+select,
+textarea {
+    font-family: inherit;
+}
+
+/* ---------- Page ---------- */
+
+html,
+body {
+    min-width: 300px;
 }
 
 body {
+    margin: var(--page-margin);
     font-family: ChicagoFLF, Verdana, sans-serif;
-    margin: 4px;
     color: var(--text-color);
     /* 50% dithered desktop pattern */
     background: repeating-conic-gradient(
@@ -50,25 +97,19 @@ body {
     background-color: var(--highlight-color);
 }
 
-body,
-html {
-    min-width: 300;
+:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 1px;
 }
 
-/* Force form controls to inherit font */
-input,
-button,
-select,
-textarea {
-    font-family: inherit;
-}
+/* ---------- Controls ---------- */
 
 input {
+    padding: 3px 4px;
     background-color: var(--input-background-color);
     color: var(--text-color);
-    border: 1px solid var(--input-border-color);
-    padding: 3px 4px;
-    box-shadow: var(--sunken);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--bevel-sunken);
 }
 
 input::placeholder {
@@ -78,33 +119,18 @@ input::placeholder {
 button {
     background-color: var(--button-background-color);
     color: var(--button-text-color);
-    border: 1px solid var(--text-color);
+    border: 1px solid var(--border-color);
     border-radius: 4px;
-    box-shadow: var(--raised);
+    box-shadow: var(--bevel-raised);
 }
 
 button:hover {
-    background-color: var(--list-background-color);
+    background-color: var(--button-hover-background-color);
 }
 
 /* Classic Mac buttons invert while held down */
 button:active {
-    background-color: var(--text-color);
-    color: var(--list-background-color);
+    background-color: var(--button-active-background-color);
+    color: var(--button-active-text-color);
     box-shadow: none;
-}
-
-:focus-visible {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 1px;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-    margin: 0;
 }
