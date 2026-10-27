@@ -1,5 +1,5 @@
 .BlockList {
     display: flex;
     flex-direction: column;
-    gap: 8;
+    gap: 8px;
 }

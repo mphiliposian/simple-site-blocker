@@ -1,6 +1,5 @@
 import globals from "globals";
 import reactPlugin from "eslint-plugin-react";
-import reactHooks from "eslint-plugin-react-hooks";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
 
 export default [
@@ -22,7 +21,7 @@ export default [
             "react-hooks": reactHooksPlugin,
         },
         rules: {
-            ...reactHooks.configs.recommended.rules,
+            ...reactHooksPlugin.configs.recommended.rules,
         },
 
         settings: {

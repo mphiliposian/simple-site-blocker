@@ -15,7 +15,7 @@ export function PauseButton() {
     }, []);
 
     const onClick = useCallback(() => {
-        var newState = blockState === "active" ? "inactive" : "active";
+        let newState = blockState === "active" ? "inactive" : "active";
         setBlockState(newState);
         chrome.storage.sync.set({ blockState: newState });
     }, [blockState]);
