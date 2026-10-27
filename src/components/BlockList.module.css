@@ -13,15 +13,23 @@
     padding: 4px;
     background-color: var(--list-background-color);
     border: 1px solid var(--list-border-color);
+    box-shadow: var(--sunken);
     overflow-y: auto;
     scrollbar-gutter: stable;
 }
 
 /* Custom scrollbar styles replace macOS overlay scrollbars with an always-visible one that takes up layout space */
 .BlockListItems::-webkit-scrollbar {
-    width: 8px;
+    width: 12px;
+}
+
+.BlockListItems::-webkit-scrollbar-track {
+    background-color: var(--scrollbar-track-color);
+    border-left: 1px solid var(--list-border-color);
 }
 
 .BlockListItems::-webkit-scrollbar-thumb {
     background-color: var(--scrollbar-thumb-color);
+    border: 1px solid var(--list-border-color);
+    box-shadow: var(--raised);
 }

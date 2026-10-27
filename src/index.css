@@ -6,20 +6,53 @@
 }
 
 :root {
-    --background-color: silver;
-    --list-background-color: gainsboro;
-    --list-border-color: dimgrey;
-    --scrollbar-thumb-color: grey;
+    color-scheme: light;
+
+    --desktop-color: #8e8e8e;
+    --desktop-dither-color: #b4b4b4;
+    --background-color: #dddddd;
+    --text-color: #000000;
+    --accent-color: #6b6bc4;
+    --highlight-color: #ccccff;
+    --list-background-color: #ffffff;
+    --list-border-color: var(--text-color);
+    --scrollbar-track-color: #eeeeee;
+    --scrollbar-thumb-color: #bbbbee;
+    --input-background-color: #ffffff;
+    --input-border-color: var(--text-color);
+    --placeholder-color: #888888;
+    --button-background-color: #eeeeee;
+    --button-text-color: var(--text-color);
+    --bevel-light-color: #ffffff;
+    --bevel-dark-color: #888888;
+
+    --raised:
+        inset 1px 1px 0 var(--bevel-light-color),
+        inset -1px -1px 0 var(--bevel-dark-color);
+    --sunken:
+        inset 1px 1px 0 var(--bevel-dark-color),
+        inset -1px -1px 0 var(--bevel-light-color);
 }
 
 body {
     font-family: ChicagoFLF, Verdana, sans-serif;
-    background-color: var(--background-color);
+    margin: 4px;
+    color: var(--text-color);
+    /* 50% dithered desktop pattern */
+    background: repeating-conic-gradient(
+            var(--desktop-color) 0 25%,
+            var(--desktop-dither-color) 0 50%
+        )
+        0 0 / 2px 2px;
+}
+
+::selection {
+    background-color: var(--highlight-color);
 }
 
 body,
 html {
-    min-width: 250px;
+    min-width: 300;
 }
 
 /* Force form controls to inherit font */
@@ -28,6 +61,42 @@ button,
 select,
 textarea {
     font-family: inherit;
+}
+
+input {
+    background-color: var(--input-background-color);
+    color: var(--text-color);
+    border: 1px solid var(--input-border-color);
+    padding: 3px 4px;
+    box-shadow: var(--sunken);
+}
+
+input::placeholder {
+    color: var(--placeholder-color);
+}
+
+button {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    border: 1px solid var(--text-color);
+    border-radius: 4px;
+    box-shadow: var(--raised);
+}
+
+button:hover {
+    background-color: var(--list-background-color);
+}
+
+/* Classic Mac buttons invert while held down */
+button:active {
+    background-color: var(--text-color);
+    color: var(--list-background-color);
+    box-shadow: none;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 1px;
 }
 
 h1,

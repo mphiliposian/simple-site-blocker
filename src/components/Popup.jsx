@@ -12,16 +12,18 @@ export function Popup() {
 
     return (
         <div className={styles.Popup}>
-            <h2>Simple Site Blocker</h2>
-            <BlockList
-                items={items}
-                onUpdate={updateItem}
-                onRemove={removeItem}
-                onAdd={addItem}
-            />
-            <div className={styles.Controls}>
-                <PauseButton />
-                <TrashAllButton onClick={removeAllItems} />
+            <h2 className={styles.TitleBar}>Simple Site Blocker</h2>
+            <div className={styles.Content}>
+                <BlockList
+                    items={items}
+                    onUpdate={updateItem}
+                    onRemove={removeItem}
+                    onAdd={addItem}
+                />
+                <div className={styles.Controls}>
+                    <PauseButton />
+                    <TrashAllButton onClick={removeAllItems} />
+                </div>
             </div>
         </div>
     );

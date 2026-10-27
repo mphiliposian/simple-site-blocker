@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 
 import trashIcon from "../assets/trash.svg";
 
+import { Icon } from "./Icon";
+
 import styles from "./TrashAllButton.module.css";
 
 export function TrashAllButton({ onClick }) {
@@ -31,7 +33,7 @@ export function TrashAllButton({ onClick }) {
                 "Sure?"
             ) : (
                 <>
-                    <img src={trashIcon} />
+                    <Icon src={trashIcon} />
                     All
                 </>
             )}

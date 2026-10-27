@@ -1,5 +1,7 @@
 import trashIcon from "../assets/trash.svg";
 
+import { Icon } from "./Icon";
+
 import styles from "./BlockListItem.module.css";
 
 export function BlockListItem({ value, onChange, onRemove }) {
@@ -11,7 +13,7 @@ export function BlockListItem({ value, onChange, onRemove }) {
                 onChange={(e) => onChange(e.target.value)}
             />
             <button className={styles.TrashButton} onClick={onRemove}>
-                <img src={trashIcon} />
+                <Icon src={trashIcon} />
             </button>
         </div>
     );

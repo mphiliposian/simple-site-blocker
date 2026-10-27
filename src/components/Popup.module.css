@@ -1,9 +1,44 @@
 .Popup {
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+    /* Chrome caps popups at 600px; subtract body's 4px margins */
+    max-height: calc(600px - 8px);
+    background-color: var(--background-color);
+    border: 1px solid var(--text-color);
+    box-shadow: 2px 2px 0 var(--text-color);
+}
+
+.TitleBar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 20px;
+    padding: 0 4px;
+    font-size: 13px;
+    font-weight: normal;
+    border-bottom: 1px solid var(--text-color);
+    box-shadow: var(--raised);
+}
+
+/* Pinstripes on either side of the title */
+.TitleBar::before,
+.TitleBar::after {
+    content: "";
+    flex: 1;
+    height: 11px;
+    background: repeating-linear-gradient(
+        var(--text-color) 0 1px,
+        transparent 1px 2px
+    );
+}
+
+.Content {
+    display: flex;
+    flex-direction: column;
     gap: 8px;
-    /* Chrome caps popups at 600px; subtract body's default 8px margins */
-    max-height: calc(600px - 16px);
+    min-height: 0;
+    padding: 8px;
 }
 
 .Controls {
