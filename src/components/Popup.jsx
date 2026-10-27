@@ -2,11 +2,13 @@ import { useBlockList } from "../hooks/useBlockList";
 
 import { BlockList } from "./BlockList";
 import { PauseButton } from "./PauseButton";
+import { TrashAllButton } from "./TrashAllButton";
 
 import styles from "./Popup.module.css";
 
 export function Popup() {
-    const { items, updateItem, removeItem, addItem } = useBlockList();
+    const { items, updateItem, removeItem, addItem, removeAllItems } =
+        useBlockList();
 
     return (
         <div className={styles.Popup}>
@@ -17,7 +19,10 @@ export function Popup() {
                 onRemove={removeItem}
                 onAdd={addItem}
             />
-            <PauseButton />
+            <div className={styles.Controls}>
+                <PauseButton />
+                <TrashAllButton onClick={removeAllItems} />
+            </div>
         </div>
     );
 }

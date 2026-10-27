@@ -75,7 +75,12 @@ export function useBlockList() {
         [items, persist],
     );
 
-    return { items, updateItem, removeItem, addItem };
+    const removeAllItems = useCallback(() => {
+        setItems([]);
+        persist([]);
+    }, [persist]);
+
+    return { items, updateItem, removeItem, addItem, removeAllItems };
 }
 
 function getNextRuleId(existingIds) {
