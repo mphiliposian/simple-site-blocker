@@ -10,6 +10,9 @@
     flex-direction: column;
     gap: 8px;
     min-height: 0;
+    padding: 4px;
+    background-color: var(--list-background-color);
+    border: 1px solid var(--list-border-color);
     overflow-y: auto;
     scrollbar-gutter: stable;
 }
@@ -20,5 +23,5 @@
 }
 
 .BlockListItems::-webkit-scrollbar-thumb {
-    background-color: grey;
+    background-color: var(--scrollbar-thumb-color);
 }

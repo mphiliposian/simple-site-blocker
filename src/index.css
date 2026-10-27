@@ -5,9 +5,16 @@
     font-display: swap;
 }
 
+:root {
+    --background-color: silver;
+    --list-background-color: gainsboro;
+    --list-border-color: dimgrey;
+    --scrollbar-thumb-color: grey;
+}
+
 body {
     font-family: ChicagoFLF, Verdana, sans-serif;
-    background-color: lightgrey;
+    background-color: var(--background-color);
 }
 
 body,
