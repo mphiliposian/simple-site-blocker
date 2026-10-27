@@ -9,11 +9,11 @@ export default [
         languageOptions: {
             parserOptions: {
                 ecmaFeatures: {
-                    jsx: true, // Enable JSX parsing
+                    jsx: true,
                 },
             },
             globals: {
-                ...globals.browser, // Include browser environment globals like window and document
+                ...globals.browser,
             },
         },
         plugins: {
@@ -26,7 +26,7 @@ export default [
 
         settings: {
             react: {
-                version: "detect", // Automatically detect your React version
+                version: "detect",
             },
         },
     },
