@@ -2,4 +2,23 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    min-height: 0;
+}
+
+.BlockListItems {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+}
+
+/* Custom scrollbar styles replace macOS overlay scrollbars with an always-visible one that takes up layout space */
+.BlockListItems::-webkit-scrollbar {
+    width: 8px;
+}
+
+.BlockListItems::-webkit-scrollbar-thumb {
+    background-color: grey;
 }
