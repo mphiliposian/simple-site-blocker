@@ -1,12 +1,14 @@
 import { BlockList } from "./BlockList";
+import { PauseButton } from "./PauseButton";
 
 import styles from "./Popup.module.css";
 
 export function Popup() {
     return (
-        <div>
-            <h2 className={styles.Title}>Simple Site Blocker</h2>
+        <div className={styles.Popup}>
+            <h2>Simple Site Blocker</h2>
             <BlockList />
+            <PauseButton />
         </div>
     );
 }

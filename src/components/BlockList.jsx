@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 import { BlockListItem } from "./BlockListItem";
 import { NewBlockListItem } from "./NewBlockListItem";
-import { PauseButton } from "./PauseButton";
 
 import styles from "./BlockList.module.css";
 
@@ -92,7 +91,6 @@ export function BlockList() {
                 />
             ))}
             <NewBlockListItem onAdd={addItem} />
-            <PauseButton />
         </div>
     );
 }
