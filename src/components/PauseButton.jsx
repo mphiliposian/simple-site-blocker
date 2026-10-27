@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 
+import pauseIcon from "../assets/pause.svg";
+import playIcon from "../assets/play.svg";
+
 import styles from "./PauseButton.module.css";
 
 export function PauseButton() {
@@ -26,9 +29,7 @@ export function PauseButton() {
                 Blocking is PAUSED
             </span>
             <button className={styles.PauseButton} onClick={onClick}>
-                <img
-                    src={`/src/assets/${blockState === "active" ? "pause" : "play"}.svg`}
-                />
+                <img src={blockState === "active" ? pauseIcon : playIcon} />
             </button>
         </div>
     );

@@ -16,14 +16,23 @@ Windows:
 
     git clone https://github.com/mphiliposian/simple-site-blocker.git %USERPROFILE%\simple-site-blocker
 
-#### 2. Add to Chrome
+#### 2. Build the extension
+
+Requires [Node.js](https://nodejs.org/). From the simple-site-blocker folder:
+
+    npm install
+    npm run build
+
+This outputs the extension to the `dist` folder.
+
+#### 3. Add to Chrome
 
 - Open Chrome
 - Click the extensions icon to open the extensions popup menu
 - Click "Manage Extensions" to navigate to the extensions page
 - Turn on "Developer mode" using the toggle in the upper-right corner
 - Click the "Load unpacked" button
-- Find and select the simple-site-blocker folder
+- Find and select the `dist` folder inside simple-site-blocker
 
 After that, Simple Site Blocker should be available in the extensions popup menu. You can click the pin icon for convenient access.
 
